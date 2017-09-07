@@ -1,5 +1,5 @@
 #+TITLE: Data Schema
-#+AUTHOR: Nitesh Gupta, S. Shashank, Rachit Jain
+#+AUTHOR: S. Shashank
 
 
 * User:
