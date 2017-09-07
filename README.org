@@ -1,12 +1,6 @@
 #+TITLE:  StackOverflow
 #+DATE: 16'th April,2017
 
-* TEAM MEMBERS: 
-- RACHIT JAIN (jainrachit100@gmail.com)
-- NITESH GUPTA (nitesh.gupta@students.iiit.ac.in)
-- S SHASHANK (shashank.s@research.iiit.ac.in)
-
-
 * Overview
 A simple Q&A app using Flask
 
