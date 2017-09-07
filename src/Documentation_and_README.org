@@ -1,0 +1,241 @@
+#+TITLE:  StackOverflow
+#+DATE: 16'th April,2017
+
+* TEAM MEMBERS: 
+- RACHIT JAIN (jainrachit100@gmail.com)
+- NITESH GUPTA (nitesh.gupta@students.iiit.ac.in)
+- S SHASHANK (shashank.s@research.iiit.ac.in)
+
+
+* Overview
+A simple Q&A app using Flask
+
+
+* Goals
+To implement StackOverflow like web application which supports most of the features.
+
+
+* Features
+- Create questions and answers.
+- Comment on questions and answers.
+- Upvote/Downvote questions, answers and comments.
+- Users have a profile (With unique gravatar for each user).
+- Support for tagging questions.
+- Questions are categorized by most recently asked.
+- Supports pagination of questions. 
+- Categorize questions on the basis of answered, unanswered and all.
+- Search questions on the basis of tags.  
+
+
+* README
+** Getting Started
+
+- These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+
+** Prerequisites
+
+Things you need to install the software and instructions to install them:
+
+- You should have python3 and pip3 installed:
+
+- First check if python3 is intstalled by using the command:
+#+BEGIN_SRC python
+  python3 -V
+#+END_SRC
+
+- Output:
+#+BEGIN_SRC 
+  Python 3.5.2
+#+END_SRC
+  
+- If not installed then type the following:
+#+BEGIN_SRC 
+  sudo apt-get update
+  sudo apt-get -y update
+#+END_SRC
+** Instructions for installing pip
+
+#+BEGIN_SRC 
+sudo apt-get install python3-pip
+
+#+END_SRC
+** Instructions for installing few more packages and development tools for the programming environment
+
+#+BEGIN_SRC 
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+#+END_SRC
+** Installing
+
+- Getting our web app up and running is simple. 
+- To run it you have to do what you do with most flask apps.
+
+** Setting up virtual environment:
+
+#+BEGIN_SRC 
+virtualenv -p /usr/bin/python3 name_of_your_environment
+source name_of_your_environment/bin/activate
+pip install -r requirements.txt
+#+END_SRC
+** Creating the initial database:
+#+BEGIN_SRC python 
+ python db_create.py
+ python db_migrate.py # In case you need to migrate the database
+#+END_SRC
+
+** Running the web app :
+#+BEGIN_SRC python 
+python run.py # The web app can be run in http://127.0.0.1:5000
+#+END_SRC
+
+** Deployment
+
+- Add additional notes about how to deploy this on a live system
+
+** Built With
+
+- [[http://flask.pocoo.org/][Flask]] - The web framework used
+- [[http://getbootstrap.com/][Bootstrap]] - The responsive CSS framework used
+- [[https://bootswatch.com/][Bootswatch]] - A website for bootstrap themes
+- [[https://flask-wtf.readthedocs.io/en/stable/][Flask-WTF]] - Simple integration of Flask and WTForms, including CSRF, file upload, and reCAPTCHA.
+- [[https://flask-login.readthedocs.io/en/latest/][Flask-Login]] - Flask-Login provides user session management for Flask
+- [[https://github.com/google/code-prettify][Code-prettify]] - An embeddable script that makes source-code snippets in HTML prettier.
+
+** Versioning
+
+- We used [[https://git-scm.com/][Git]] for versioning. 
+
+** License
+This project is licensed under the MIT License - [[file:LICENSE.md]]
+** Acknowledgments
+-  Special thanks of gratitude to D.R. Venkatesh Choppella for providing us with this excellent oppurtunity to design a web app
+-  To our mentor Raj Patel without whose help it would have been difficult to complete this project.
+
+
+* Flask
+It is a simple web app made using Flask web framework to implement a StackOverflow-like forum site.
+- Official *Flask documentation* [[http://flask.pocoo.org/docs/0.12/][here]].
+
+
+* How we started ..
+- First we started by building database schema.
+- Then we built a blueprint of the application like organised controllers and models in different folders of users, comments, etc.
+- Then we started coding controllers and models. First we coded models and controllers of users.
+- Then we built base.html which is usd in every HTML page.
+- Then we started by building controllers and models for login and register page
+- Then we coded controllrs and models of comments,answers,tags,etc and side by side coded html.
+- Then we made profile page which shows the statastics of the user like number of questions asked,upvotes,downvotes,etc.
+- Then we added some intgrity check features that is each user can upvote or downvote only once.
+- Then we added some more features like Migration and Pagination.
+- At last we added some security features like CSRF protection,captcha generation.
+- We also implemented a 404 page error in which will be displayed if someone asks for a page which is not in our web app.
+
+
+* Design
+- Used inheritance feature, for eg. every HTML page inherits from base.html.
+- Used SQLAlchemy-migrate to keep track of database updates for us-> Migration feature.
+- Used Sqlite database.
+- Important feature in our web application is there is a unique gravatar for each user which is generated online when the user successfully registers.
+- Pagination is also a feature in our app so that six posts per page is visible.
+- Used WTF forms which helps in rendering fields and which also has built in validators. 
+- Integrity check feature -> One user can only upvote or downvote once.
+- Every user can view the dashboard of other user and see his/her statastics which shows number of questions answered,questions asked ,upvotes,downvotes.
+- A user can add multiple tags to a particular question and can search question by tags
+- Factored our web app into a set of blueprints for making application components and supporting common patterns within an application or across applications. 
+
+
+* Security
+- Used SQLALCHEMY prevent SQL injection.
+- Used CSRF protction which is auto enabled by WTF forms.
+- Another important thing that we had done for security is Captcha generation at the time of registration which the user has to verify.
+  A CAPTCHA (a backronym for "Completely Automated Public Turing test to tell Computers and Humans Apart") is a type of challenge-response test 
+  used in computing to determine whether or not the user is human.
+- The passowds are stored as hashes not in plain taxt,so even if our database is stolen by someone else he/she cannot get the password used for login
+  into our web app.
+ 
+
+* Snippets
+** Snippet of schema
+#+BEGIN_SRC text
+  User:
+
+- Name => String
+- Age => String
+- Year Joined => String
+- Reputation => Integer
+- Id (Primary Key) => Integer
+
+#+END_SRC
+** Snippet of Blueprint
+#+BEGIN_SRC python
+from .mod_answer import mod_answer as answer_blueprint
+app.register_blueprint(answer_blueprint)
+
+from .mod_auth import mod_auth as auth_blueprint
+app.register_blueprint(auth_blueprint)
+
+from .mod_comment import mod_comment as comment_blueprint
+app.register_blueprint(comment_blueprint)
+
+from .mod_home import mod_home as home_blueprint
+app.register_blueprint(home_blueprint)
+#+END_SRC
+** Snippet of views.py(controller) of login page
+#+BEGIN_SRC python
+@mod_auth.route('/login', methods = ['GET', 'POST'])
+def login():
+        form = LoginForm()
+        if form.validate_on_submit():
+                user = User.query.filter_by(email = form.email.data).first()
+                if user is not None and user.verify_password(form.password.data):
+                        login_user(user)
+                        return redirect(url_for('mod_user.dashboard'))
+                else:
+                        flash('Invalid email or password.')
+        return render_template('mod_auth/login.html', form = form, title = 'Login')
+
+#+END_SRC
+** Snippet of WTF FORMS
+#+BEGIN_SRC html
+        <h1>Post Question</h1>
+        <br>
+                <form class = "form" method="post" action="" role = "form">
+                {{ form.csrf_token }}
+                {{ wtf.form_field(form.title) }}
+                {{ wtf.form_field(form.body) }}
+                {{ wtf.form_field(form.code) }}
+                {{ wtf.form_field(form.tag, data_role="tagsinput") }}
+                {{ wtf.form_field(form.submit) }}
+                <!--<button type="submit">Submit</button>-->
+                </form>
+                </div>
+        </div>
+#+END_SRC
+** Snippet of answerQuestion.html which uses inheritance feature
+#+BEGIN_SRC html
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %} Add Answer {% endblock %}
+{% block body %}
+<div class="container">
+        <div class="col-md-12 text-center">
+        <ul class="nav nav-pills">
+            <li><a href="{{ url_for('mod_home.index') }}">All</a></li>
+            <li><a href="{{ url_for('mod_question.unansweredQuestions') }}">Unanswered</a></li>
+            <li><a href="{{ url_for('mod_question.answeredQuestions') }}">Answered</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="{{ url_for('mod_tag.searchByTags') }}">Search By Tags</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+        <div class="content-section">
+                <div class="center">
+        <h1>Post Answer</h1>
+        <br>
+                {{ wtf.quick_form(form) }}
+                </div>
+        </div>
+</div>
+{% endblock %}
+
+#+END_SRC

@@ -1,0 +1,33 @@
+<li>
+	<div class="comment-main-level" >
+	<div class="comment-avatar"><img src="{{ user(comment.user_id).avatar(120) }}" alt=""></div>
+		<div class="comment-box">
+			<div class="comment-head">
+				<h6 class="comment-name by-author">
+					<span class="comment-author">
+						{{ user(comment.user_id).username }}
+					</span>
+				</h6>
+				{% if current_user.is_authenticated and vote_allowed_check(comment.comment_id, 2, 3) %}
+					<!--<a href = "{{ url_for('mod_vote.commentDownvote', comment_id = comment.comment_id) }}"><i class="fa fa-thumbs-down"> {{ comment.downvotes.all()|length }} </i></a>-->
+					<a id="downvote-{{ comment.comment_id }}" onclick="downvote(this)">
+						<i class="fa fa-thumbs-down"> {{ comment.downvotes.all()|length }} </i>
+					</a>
+				{% else %}
+					<a href = "{{ url_for('mod_vote.commentDownvote', comment_id = comment.comment_id) }}" onclick="return false;" style="cursor: default;" ><i class="fa fa-thumbs-down"> {{ comment.downvotes.all()|length }} </i></a>
+				{% endif %}
+				{% if current_user.is_authenticated and vote_allowed_check(comment.comment_id, 1, 3) %}
+					<!--<a href="{{ url_for('mod_vote.commentUpvote', comment_id = comment.comment_id) }}"><i class="fa fa-thumbs-up"> {{ comment.upvotes.all()|length }}</i></a>-->
+					<a id="upvote-{{ comment.comment_id }}" onclick="upvote(this)">
+						<i class="fa fa-thumbs-up"> {{ comment.upvotes.all()|length }}</i>
+					</a>
+				{% else %}
+					<a href="{{ url_for('mod_vote.commentUpvote', comment_id = comment.comment_id) }}" onclick="return false;" style="cursor: default;" ><i class="fa fa-thumbs-up"> {{ comment.upvotes.all()|length }} </i></a>
+				{% endif %}
+			</div>
+			<div class="comment-content" style="text-align: justify;">
+				{{ comment.body }}
+			</div>
+		</div>
+	</div>
+</li>

@@ -1,0 +1,10 @@
+<h3 style="text-align: left;"><a href="{{ url_for('mod_question.showQuestion', question_id = question.question_id) }}">{{ question.title }}</a></h3>
+<hr>
+<div class="well well-lg">
+	{% if question.body.split()|length > 25 %}
+		{{ " ".join((question.body.split())[:25]) }}
+	{% else %}
+		{{ question.body }}
+	{% endif %}
+</div>
+<hr>

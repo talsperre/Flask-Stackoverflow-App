@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="container">
+		<img src="{{ current_user.avatar(120) }}" style="display: block; margin: auto;">
+		<br>
+		<p style="text-align: center;"><span class="text-warning"> Welcome {{ current_user.username }} </span></p>
+		<p style="text-align: center;"><i> Last seen on: {{ current_user.last_seen }}</i></p>
+	</div>
+	<br>
+	<div class="col-md-12 text-center">
+    	<ul class="nav nav-pills">
+      		<li><a href="{{ url_for('mod_user.dashboard') }}">My Questions</a></li>
+  			<li class="active"><a href="{{ url_for('mod_user.myAnswers') }}">My Answers</a></li>
+  			<li><a href="{{ url_for('mod_question.addQuestion') }}">Ask A Question</a></li>
+    	</ul>
+	</div>
+	<div class="col-md-12 text-center">
+        {% for question in questions %}
+            {% include 'mod_question/questionLink.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

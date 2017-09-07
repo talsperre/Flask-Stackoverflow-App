@@ -1,0 +1,27 @@
+
+#container {
+position: absolute;
+top: 10%;
+left: 15%;
+width: 100px;
+height: 100px;
+}
+
+#fof {
+display:block; 
+position:relative; 
+width:1280px; 
+height:720px; 
+background:url("../images/404.png") top left no-repeat; 
+
+line-height:1.6em;
+text-align:center; }
+
+#fof .positioned{display:block; position:absolute; top:300px; right:0; width:448px; height:250px;}
+#fof .hgroup{margin-bottom:50px;}
+#fof .hgroup h1{}
+#fof .hgroup h2{}
+
+#fof p{display:block; margin:0 0 25px 0; padding:0; font-size:16px;}
+#fof #respond input{width:200px; padding:5px; border:1px solid #CCCCCC;}
+#fof #respond #submit{width:auto;}

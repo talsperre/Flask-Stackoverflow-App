@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="container">
+		<img src="{{ current_user.avatar(120) }}" style="display: block; margin: auto;">
+		<br>
+		<h1 style="text-align: center;"><span class="text-warning"> Hello {{ current_user.username }} </span></h1>
+    <h4 style="text-align: center;"><span class="text-warning"> You last visited on: <u>
+    {{ current_user.last_seen.strftime('%A %d. %B %Y ,%H:%M:%S') }}</u></span></h4>
+    <h1 style="text-align: center;"><span class="text-info"> Statistics of {{ current_user.username }} :-</span></h1>
+    <table class="table table-striped table-hover table-bordered">
+      <br />
+       <thead>
+    <tr class="success">
+      <th style="text-align: center;">#</th>
+      <th style="text-align: center;">Activity done by {{ current_user.username }}</th>
+      <th style="text-align: center;">Analysis of {{ current_user.username }}</th>
+    </tr>
+  </thead>
+      <tbody>
+        <tr class="active">
+          <td style="text-align: center;">1</td>
+          <td style="text-align: center;">Questions asked</td>
+          <td style="text-align: center;">{{ current_user.questions.all()|length }}</td>
+        </tr>
+        <tr class="active">
+          <td style="text-align: center;">2</td>
+          <td style="text-align: center;">Questions answered</td>
+          <td style="text-align: center;">{{ current_user.answers.all()|length }}</td>
+        </tr>
+        <tr class="active">
+          <td style="text-align: center;">3</td>
+          <td style="text-align: center;">Upvotes</td>
+          <td style="text-align: center;">{{ current_user.upvotes.all()|length }}</td>
+        </tr>
+        <tr class="active">
+          <td style="text-align: center;">4</td>
+          <td style="text-align: center;">Downvotes</td>
+          <td style="text-align: center;">{{ current_user.downvotes.all()|length }}</td>
+        </tr>
+      </tbody>
+    </table> 
+      </div>
+      <br>
+      <div class="col-md-12 text-center">
+       <ul class="nav nav-pills">
+        <li class="active"><a href="{{ url_for('mod_user.dashboard') }}">My Questions</a></li>
+        <li><a href="{{ url_for('mod_user.myAnswers') }}">My Answers</a></li>
+        <li><a href="{{ url_for('mod_question.addQuestion') }}">Ask A Question</a></li>
+      </ul>
+    </div>
+    <div class="col-md-12 text-center">
+      {% for question in questions.items %}
+      {% include 'mod_question/questionLink.html' %}
+      {% endfor %}
+    </div>
+    <ul class="pager">
+      {% if questions.has_prev %}<li><a href="{{ url_for('mod_user.dashboard', page=questions.prev_num) }}">Previous</a></li>{% else %}<li>Previous</li>{% endif %}  
+      {% if questions.has_next %}<li><a href="{{ url_for('mod_user.dashboard', page=questions.next_num) }}">Next</a></li>{% else %}<li>Next</li>{% endif %}
+    </ul>    
+
+  </div>
+  {% endblock %}

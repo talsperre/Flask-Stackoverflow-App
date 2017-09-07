@@ -1,0 +1,35 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col-md-12 text-center">
+        <ul class="nav nav-pills">
+            <li><a href="{{ url_for('mod_home.index') }}">All</a></li>
+            <li><a href="{{ url_for('mod_question.unansweredQuestions') }}">Unanswered</a></li>
+            <li><a href="{{ url_for('mod_question.answeredQuestions') }}">Answered</a></li>
+            <li class="active"><a href="{{ url_for('mod_tag.searchByTags') }}">Search By Tags</a></li>
+            <li><a href="{{ url_for('mod_user.profile') }}">Search User</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <div class="content-section">
+        <div class="center">
+            <h1 style="text-align: center;">Search By Tags</h1>
+            <form class = "form" method="post" action="" role = "form">
+            {{ form.csrf_token }}
+            {{ wtf.form_field(form.tag, data_role="tagsinput") }}
+            {{ wtf.form_field(form.submit) }}
+            </form>
+        </div>
+    </div>
+    {% if questions|length > 0 %}
+        <div class="col-md-12 text-center">
+            {% for question in questions %}
+                {% include 'mod_question/questionLink.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

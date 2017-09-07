@@ -1,0 +1,80 @@
+#+TITLE: Data Schema
+#+AUTHOR: Nitesh Gupta, S. Shashank, Rachit Jain
+
+
+* User:
+
+- User Id (Primary Key) => Integer
+- User Name => String
+- Email => String
+- Password Hash => String
+- Last Seen => String
+
+* Question:
+
+- Question Id (Primary Key) => Integer
+- Title => String
+- Content => Text
+- Code => Text
+- Timestamp => DateTime
+- User Id (Foreign Key) => Integer
+- Answered => Integer
+
+* Upvote:
+
+- Vote Id (Primary Key) => Integer
+- User Id (Foreign Key) => Integer 
+- Question Id(Foreign Key) => Integer
+- Answer Id (Foreign Key) => Integer
+- Comment Id (Foreign Key) => Integer
+
+* Downvote:
+
+- Vote Id (Primary Key) => Integer
+- User Id (Foreign Key) => Integer 
+- Question Id(Foreign Key) => Integer
+- Answer Id(Foreign Key) => Integer
+- Comment Id (Foreign Key) => Integer
+
+* Answer:
+
+- Answer Id (Primary Key) => Integer
+- Body => Text
+- Code => Text
+- Timestamp => DateTime
+- User Id (Foreign Key) => Integer
+- Question Id (Foreign Key) => Integer
+
+* Comments (Only 1 level):
+
+- Comment Id (Primary key) => Integer
+- Body => Text
+- User Id (Foreign Key) => Integer
+- Question Id (Foreign Key) => Integer
+- Answer Id (Foreign Key) => Integer
+
+* Tag:
+- Tag Id (Primary Key) => Integer
+- Body => String
+- Question Id (Foreign Key) => Integer
+
+* Login:
+
+- Using wtforms, flask-login (Own)
+- Session Handline done by flask-login package
+
+* Pagination:
+
+- For post there will be multiple pages
+
+* Index:
+
+- Options (Answered/Unanswered/All)
+- Index will show unanswered questions
+
+* Frameworks Used:
+
+- Flask
+- Bootstrap
+- jQuery
+- Others

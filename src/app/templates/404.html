@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+StackOverflow - Error
+{% endblock %}
+
+{% block style %}
+    <!-- Custom Fonts -->
+    <link href="{{'https://fonts.googleapis.com/css?family=Montserrat:400,700'}}" rel="stylesheet" type="text/css">
+    <link href="{{'https://fonts.googleapis.com/css?family=Kaushan+Script'}}" rel='stylesheet" type='text/css'>
+    <link href="{{'https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'}}" rel='stylesheet' type='text/css'>
+    <link href="{{'https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'}}" rel='stylesheet' type='text/css'>
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='404/styles/404.css')}}">
+    <!--<link href="static/css/agency.min.css" rel="stylesheet">-->
+{% endblock %}
+{% block body %}
+<!--<div class="wrapper row2">-->
+  <div id="container" class="clear">
+    <section id="fof" class="clear">
+      <div class="positioned">
+        <div class="hgroup">
+          <h1>Congratulations!</h1>
+          <h3>You Found Our 404 Error Page</h3>
+		</div>
+        <p>Joke Aside<br>
+          The Page You Requested Could Not Be Found On Our Server</p>
+        <div id="respond">
+           <a href="{{ url_for('mod_home.index') }}" class="btn btn-warning">Go back &amp; Explore Our Site</a> 
+        </div>
+        <br/>
+        <br>
+      </div>
+    </section>  
+  </div>
+<!--</div>-->
+
+{% endblock %}

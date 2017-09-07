@@ -1,0 +1,85 @@
+<h2 style="text-align: left;"><a href="#">{{ question.title }}</a></h2>
+<hr>
+<div class="well well-lg">
+	{{ question.body }}
+</div>
+<pre class="prettyprint" style="text-align: justify;">
+	{{ question.code }}
+</pre>
+<table class="table table-condensed" style="padding: 0px; margin-right: 0px;">
+	<tr>
+		<td>
+		{% if current_user.is_authenticated and vote_allowed_check(question.question_id, 1, 1) %}
+			<!--<a href = "{{ url_for('mod_vote.questionUpvote', question_id = question.question_id) }}" class="btn btn-success btn-block btn-default">Upvotes: 
+				<span style="font-weight: bold;">{{ question.upvotes.all()|length }}</span>
+			</a>-->
+			<a id="question-upvote-{{ question.question_id }}" class="btn btn-success btn-block btn-default" onclick="questionUpvote(this)">Upvotes: 
+				<span style="font-weight: bold;">{{ question.upvotes.all()|length }}</span>
+			</a>
+		{% else %}
+			<a href = "{{ url_for('mod_vote.questionUpvote', question_id = question.question_id) }}" onclick="return false;" style="cursor: default;" class="btn btn-success btn-block btn-default">Upvotes: 
+				<span style="font-weight: bold;">{{ question.upvotes.all()|length }}
+				</span>
+			</a>
+		{% endif %}
+		</td>
+		<td>
+		{% if current_user.is_authenticated and vote_allowed_check(question.question_id, 2, 1) %}
+			<!--<a href = "{{ url_for('mod_vote.questionDownvote', question_id = question.question_id) }}"  class="btn btn-success btn-block btn-default">Downvotes: 
+				<span style="font-weight: bold;">{{ question.downvotes.all()|length }}
+				</span>
+			</a>-->
+			<a id="question-downvote-{{ question.question_id }}" class="btn btn-success btn-block btn-default" onclick="questionDownvote(this)">Downvotes: 
+				<span style="font-weight: bold;">{{ question.downvotes.all()|length }}</span>
+			</a>
+		{% else %}
+			<a href = "{{ url_for('mod_vote.questionDownvote', question_id = question.question_id) }}" onclick="return false;" style="cursor: default;" class="btn btn-success btn-block btn-default">Downvotes: 
+				<span style="font-weight: bold;">{{ question.downvotes.all()|length }}
+				</span>
+			</a>
+		{% endif %}
+		</td>
+		<td>
+			<img src="{{ question.author.avatar(40) }}" style="float: left; padding-right: 5px;">
+			<p class="text-warning" style="padding-left: 10px; font-size: 14px; font-weight: bold;">
+				{{ question.author.username }}<br>{{ question.timestamp }}
+			</p>
+		</td>
+	</tr>
+</table>
+<p style="text-align: left;">
+	{% for tag in question.tags %}
+		<span class="label label-info" style="font-size: 14px;">{{ tag.body }}</span>
+	{% endfor %}
+</p>
+<div class="container">
+	<h3 style="text-align: left;">Comments: </h3>
+	<hr>
+</div>
+<div class="comments-container">
+	<ul id="comments-list" class="comments-list">
+	{% for comment in comments %}
+		{% include 'mod_comment/comments.html' %}
+	{% endfor %}
+	{% if current_user.is_authenticated %}
+		<li>
+			<div class="comment-main-level" id = "add-question-comment" data-user-id = "{{ current_user.user_id }}" data-question-id = "{{ question.question_id }}">
+			<div class="comment-avatar"><img src="{{ current_user.avatar(120) }}" alt=""></div>
+				<div class="comment-box">
+					<div class="comment-head">
+						<h6 class="comment-name by-author"><span class="comment-author">{{ current_user.username }}</a></h6>
+					</div>
+				<div class="comment-content" style="text-align: justify;">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" id = "comment-body" name = "comment-body"></textarea><br>
+						<button type="submit" class="btn btn-primary" onclick="addQuestionComment()">Add Comment</button><br>
+					</div>
+				</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	{% endif %}
+</div>
+<hr>
+<!--http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg-->

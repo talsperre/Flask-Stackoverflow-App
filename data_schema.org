@@ -1,0 +1,56 @@
+#+TITLE: Data Schema
+#+AUTHOR: Nitesh Gupta, S. Shashank, Rachit Jain
+
+
+* User:
+
+- Name => String
+- Age => String
+- Year Joined => String
+- Reputation => Integer 
+- Id (Primary Key) => Integer
+
+* Question:
+
+- Question Id (Primary Key) => Integer
+- User Id (Foreign Key) => Integer
+- Time => Time
+- Content => Text
+- Tags => String (Comma seperated values)
+
+* Vote:
+
+- Type (Boolean) =>  Integer
+- Id (Primary Key) => Integer
+- User Id (Foreign Key) => Integer 
+- Question Id(Foreign Key) => Integer
+- Comment Id(Foreign Key) => Integer
+- Answer Id(Foreign Key) => Integer
+
+* Answer:
+- Answer Id (Primary Key) => Integer
+- Question Id (Foreign Key) => Integer
+- User Id (Foreign Key) => Integer
+
+* Comments (Only 1 level):
+- Comment Id (Primary key) => Integer
+- Question Id (Foreign Key) => Integer
+- Answer Id (Foreign Key) => Integer
+- User Id (Foreign Key) => Integer
+
+* Login:
+- Using wtforms, flask-login (Own)
+- Session Handline done by flask-login package
+
+* Pagination:
+- For post there will be multiple pages
+
+* Index:
+- Options (Answered/Unanswered/All)
+- Index will show unanswered questions
+
+* Frameworks Used:
+- Flask
+- Bootstrap
+- jQuery
+- Others

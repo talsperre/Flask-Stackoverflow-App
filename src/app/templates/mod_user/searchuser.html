@@ -1,0 +1,34 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %} Search User {% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="col-md-12 text-center">
+        <ul class="nav nav-pills">
+            <li><a href="{{ url_for('mod_home.index') }}">All</a></li>
+            <li><a href="{{ url_for('mod_question.unansweredQuestions') }}">Unanswered</a></li>
+            <li><a href="{{ url_for('mod_question.answeredQuestions') }}">Answered</a></li>
+            <li><a href="{{ url_for('mod_tag.searchByTags') }}">Search By Tags</a></li>
+            <li class="active"><a href="{{ url_for('mod_user.profile') }}">Search User</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>	
+	<div class="content-section">
+		<br>
+		{{ utils.flashed_messages() }}
+		</br>
+		<div class="center">
+			<h1 style="text-align: center;">Search User</h1>
+			<form class="form" method="POST" action="" role="form">
+				{{form.csrf_token}}
+				{{wtf.form_field(form.username)}}
+    			<br>					
+				{{wtf.form_field(form.submit)}}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

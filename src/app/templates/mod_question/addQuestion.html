@@ -1,0 +1,39 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %} Add Question {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="container">
+		<img src="{{ current_user.avatar(120) }}" style="display: block; margin: auto;">
+		<br>
+		<p style="text-align: center;"><span class="text-warning"> Welcome {{ current_user.username }} </span></p>
+		<p style="text-align: center;"><i> Last seen on: {{ current_user.last_seen }}</i></p>
+	</div>
+	<br>
+	<div class="col-md-12 text-center">
+    	<ul class="nav nav-pills">
+      		<li><a href="{{ url_for('mod_user.dashboard') }}">My Questions</a></li>
+  			<li><a href="{{ url_for('mod_user.myAnswers') }}">My Answers</a></li>
+  			<li class="active"><a href="{{ url_for('mod_question.addQuestion') }}">Ask A Question</a></li>
+    	</ul>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="content-section">
+  		<div class="center">
+    	<h1>Post Question</h1>
+    	<br>
+    		<form class = "form" method="post" action="" role = "form">
+    		{{ form.csrf_token }}
+    		{{ wtf.form_field(form.title) }}
+    		{{ wtf.form_field(form.body) }}
+    		{{ wtf.form_field(form.code) }}
+    		{{ wtf.form_field(form.tag, data_role="tagsinput") }}
+    		{{ wtf.form_field(form.submit) }}
+    		<!--<button type="submit">Submit</button>-->
+    		</form>
+  		</div>
+	</div>
+</div>
+{% endblock %}

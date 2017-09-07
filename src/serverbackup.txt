@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    #server_name server_domain_or_IP;
+    server_name 192.168.43.151;
+    listen 443 ssl;
+	ssl_certificate /etc/nginx/ssl/nginx.crt;
+	ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/grenko/it-final/stackoverflow.sock;
+        #uwsgi_pass unix:/home/grenko/myproject/myproject.sock;
+    }
+    location /static {
+    	alias /home/grenko/it-final/app/static;
+    }
+}

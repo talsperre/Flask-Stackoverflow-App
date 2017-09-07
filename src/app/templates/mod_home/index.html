@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col-md-12 text-center">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="{{ url_for('mod_home.index') }}">All</a></li>
+            <li><a href="{{ url_for('mod_question.unansweredQuestions') }}">Unanswered</a></li>
+            <li><a href="{{ url_for('mod_question.answeredQuestions') }}">Answered</a></li>
+            <li><a href="{{ url_for('mod_tag.searchByTags') }}">Search By Tags</a></li>
+            <li><a href="{{ url_for('mod_user.profile') }}">Search User</a></li>
+        </ul>
+    </div>
+    <br>
+    <div class="col-md-12 text-center">
+        {% for question in questions.items %}
+            {% include 'mod_question/questionLink.html' %}
+        {% endfor %}
+    </div>
+    <ul class="pager">
+    {% if questions.has_prev %}<li><a href="{{ url_for('mod_home.index', page=questions.prev_num) }}">Previous</a></li>{% else %}<li>Previous</li>{% endif %}  
+    {% if questions.has_next %}<li><a href="{{ url_for('mod_home.index', page=questions.next_num) }}">Next</a></li>{% else %}<li>Next</li>{% endif %}
+    </ul>
+</div>
+{% endblock %}
